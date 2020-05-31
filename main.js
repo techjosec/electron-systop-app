@@ -1,4 +1,6 @@
-const { app, BrowserWindow, Menu } = require( `electron` );
+const {
+	app, BrowserWindow, Menu, ipcMain,
+} = require( `electron` );
 const log = require( `electron-log` );
 const Store = require( `./Store` );
 
@@ -87,6 +89,11 @@ app.on( `activate`, () =>
 	{
 		createMainWindow();
 	}
+} );
+
+ipcMain.on( `settings:set`, ( _e, payload ) =>
+{
+	store.set( `settings`, payload );
 } );
 
 app.allowRendererProcessReuse = true;
