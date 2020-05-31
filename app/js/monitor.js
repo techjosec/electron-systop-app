@@ -1,4 +1,5 @@
 const path = require( `path` );
+const { ipcRenderer } = require( `electron` );
 const osu = require( `node-os-utils` );
 
 const { cpu } = osu;
@@ -6,8 +7,14 @@ const { mem } = osu;
 const { os } = osu;
 const notifier = require( `node-notifier` );
 
-const cpuOverload = 80;
-const alertFrequency = 5;
+let cpuOverload;
+let alertFrequency;
+
+ipcRenderer.on( `settings:get`, ( _e, settings ) =>
+{
+	cpuOverload = +settings.cpuOverload;
+	alertFrequency = +settings.alertFrequency;
+} );
 
 function secondsToDhms( seconds )
 {

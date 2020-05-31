@@ -1,8 +1,7 @@
-const { ipcRenderer } = require( `electron` );
-
 const settingsForm = document.getElementById( `settings-form` );
 
 /** Get settings */
+// eslint-disable-next-line no-undef
 ipcRenderer.on( `settings:get`, ( _e, settings ) =>
 {
 	document.getElementById( `cpu-overload` ).value = settings.cpuOverload;
@@ -30,6 +29,7 @@ settingsForm.addEventListener( `submit`, ( e ) =>
 	const cpuOverload = document.getElementById( `cpu-overload` ).value;
 	const alertFrequency = document.getElementById( `alert-frequency` ).value;
 
+	// eslint-disable-next-line no-undef
 	ipcRenderer.send( `settings:set`, { cpuOverload, alertFrequency } );
 
 	showAlert( `Settings updated!` );
