@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu } = require( `electron` );
 const log = require( `electron-log` );
+const Store = require( `./Store` );
 
 // Set env
 process.env.NODE_ENV = `development`;
@@ -8,6 +9,15 @@ const isDev = process.env.NODE_ENV !== `production`;
 const isMac = process.platform === `darwin`;
 
 let mainWindow;
+const store = new Store( {
+	configName : `user-settings`,
+	defaults   : {
+		settings: {
+			cpuOverload    : 80, // In Perentage
+			alertFrequency : 5, // In minuts
+		},
+	},
+} );
 
 function createMainWindow()
 {
@@ -53,6 +63,11 @@ const menu = [
 app.on( `ready`, () =>
 {
 	createMainWindow();
+
+	mainWindow.webContents.on( `dom-ready`, () =>
+	{
+		mainWindow.webContents.send( `settings:get`, store.get( `settings` ) );
+	} );
 
 	const mainMenu = Menu.buildFromTemplate( menu );
 	Menu.setApplicationMenu( mainMenu );

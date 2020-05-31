@@ -132,12 +132,13 @@ nav ul li p {
 
 .btn {
 	cursor: pointer;
-	display: inline-block;
 	border: 0;
 	background: var(--secondary-background-color);
 	color: #fff;
 	padding: 7px 10px;
-	margin-top: 10px;
+    margin-top: 10px;
+    float: right;
+    border-radius: 0.1rem;
 }
 
 .btn:active,
