@@ -15,13 +15,14 @@ module.exports = {
 		ecmaVersion: 11,
 	},
 	rules: {
-		'brace-style'     : [`error`, `allman`],
-		'space-in-parens' : [`error`, `always`],
-		'linebreak-style' : [`off`],
-		indent            : [`error`, `tab`],
-		'no-tabs'         : [`error`, { allowIndentationTabs: true }],
-		quotes            : [`error`, `backtick`],
-		'key-spacing'     : [`error`, {
+		'consistent-return' : `error`,
+		'brace-style'       : [`error`, `allman`],
+		'space-in-parens'   : [`error`, `always`],
+		'linebreak-style'   : [`off`],
+		indent              : [`error`, `tab`],
+		'no-tabs'           : [`error`, { allowIndentationTabs: true }],
+		quotes              : [`error`, `backtick`],
+		'key-spacing'       : [`error`, {
 			align: {
 				beforeColon : true,
 				afterColon  : true,
