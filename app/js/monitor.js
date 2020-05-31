@@ -6,8 +6,8 @@ const { mem } = osu;
 const { os } = osu;
 const notifier = require( `node-notifier` );
 
-const cpuOverload = 15;
-const alertFrequency = 1;
+const cpuOverload = 80;
+const alertFrequency = 5;
 
 function secondsToDhms( seconds )
 {
@@ -20,9 +20,6 @@ function secondsToDhms( seconds )
 	return `${d}d, ${h}h, ${m}m, ${s}s`;
 }
 
-function mustNotify()
-{}
-
 function notifyUser( options )
 {
 	notifier.notify( {
@@ -30,6 +27,37 @@ function notifyUser( options )
 		icon: path.join( __dirname, `img`, `icon.png` ),
 	} );
 }
+
+// Check how much time has passed since last notification
+function mustNotify()
+{
+	if ( !localStorage.getItem( `lastNotify` ) )
+	{
+		localStorage.setItem( `lastNotify`, +new Date() );
+		return true;
+	}
+
+	const notifyTime = new Date( parseInt( localStorage.getItem( `lastNotify` ), 10 ) );
+	const now = new Date();
+	const diffTime = Math.abs( now - notifyTime );
+	const minutesPassed = Math.ceil( diffTime / ( 1000 * 60 ) );
+
+	if ( minutesPassed > alertFrequency )
+	{
+		localStorage.setItem( `lastNotify`, +new Date() );
+		return true;
+	}
+
+	return false;
+}
+
+document.getElementById( `cpu-model` ).innerText = cpu.model();
+document.getElementById( `comp-name` ).innerText = os.hostname();
+document.getElementById( `os` ).innerText = `${os.type()} ${os.arch()}`;
+mem.info().then( ( info ) =>
+{
+	document.getElementById( `sys-mem` ).innerText = `${info.totalMemMb} GB`;
+} );
 
 setInterval( () =>
 {
@@ -71,11 +99,3 @@ setInterval( () =>
 {
 	document.getElementById( `sys-uptime` ).innerText = secondsToDhms( os.uptime() );
 }, 1000 );
-
-document.getElementById( `cpu-model` ).innerText = cpu.model();
-document.getElementById( `comp-name` ).innerText = os.hostname();
-document.getElementById( `os` ).innerText = `${os.type()} ${os.arch()}`;
-mem.info().then( ( info ) =>
-{
-	document.getElementById( `sys-mem` ).innerText = `${info.totalMemMb} GB`;
-} );
