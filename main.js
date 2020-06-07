@@ -1,6 +1,7 @@
 const {
 	app, BrowserWindow, Menu, ipcMain,
 } = require( `electron` );
+const path = require( `path` );
 
 const MainWindow = require( `./core/MainWindow` );
 const TrayIcon = require( `./core/TrayIcon` );
@@ -13,7 +14,6 @@ const isDev = process.env.NODE_ENV !== `production`;
 const isMac = process.platform === `darwin`;
 
 let mainWindow;
-let tray;
 
 const store = new Store( {
 	configName : `user-settings`,
@@ -32,7 +32,9 @@ function createMainWindow()
 
 function createTrayIcon()
 {
-	tray = new TrayIcon( mainWindow );
+	const icon = path.join( __dirname, `assets`, `icons`, `tray_icon.png` );
+	// eslint-disable-next-line no-unused-vars
+	const tray = new TrayIcon( icon, mainWindow );
 }
 
 const menu = [

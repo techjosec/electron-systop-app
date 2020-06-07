@@ -1,11 +1,9 @@
 const { app, Menu, Tray } = require( `electron` );
-const path = require( `path` );
 
 class TrayIcon extends Tray
 {
-	constructor( mainWindow )
+	constructor( icon, mainWindow )
 	{
-		const icon = path.join( `assets`, `icons`, `tray_icon.png` );
 		super( icon );
 
 		this.setToolTip( `SysTop` );

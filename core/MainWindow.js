@@ -1,5 +1,4 @@
 const { BrowserWindow } = require( `electron` );
-const path = require( `path` );
 
 class MainWindow extends BrowserWindow
 {
@@ -9,7 +8,7 @@ class MainWindow extends BrowserWindow
 			title          : `SysTop`,
 			width          : isDev ? 800 : 500,
 			height         : 600,
-			icon           : path.join( `assets`, `icons`, `icon.png` ),
+			icon           : `./assets/icons/icon.png`,
 			resizable      : !!isDev,
 			show           : false,
 			opacity        : 0.9,
