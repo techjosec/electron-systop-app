@@ -2,7 +2,8 @@ const {
 	app, BrowserWindow, Menu, ipcMain, Tray,
 } = require( `electron` );
 const path = require( `path` );
-const Store = require( `./Store` );
+const MainWindow = require( `./core/MainWindow` );
+const Store = require( `./core/Store` );
 
 // Set env
 process.env.NODE_ENV = `development`;
@@ -25,25 +26,7 @@ const store = new Store( {
 
 function createMainWindow()
 {
-	mainWindow = new BrowserWindow( {
-		title          : `SysTop`,
-		width          : isDev ? 800 : 500,
-		height         : 600,
-		icon           : `./assets/icons/icon.png`,
-		resizable      : !!isDev,
-		show           : false,
-		opacity        : 0.9,
-		webPreferences : {
-			nodeIntegration: true,
-		},
-	} );
-
-	if ( isDev )
-	{
-		mainWindow.webContents.openDevTools();
-	}
-
-	mainWindow.loadFile( `./app/index.html` );
+	mainWindow = new MainWindow( `./app/index.html`, isDev );
 }
 
 function createTrayIcon()
