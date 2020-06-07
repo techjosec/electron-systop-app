@@ -8,6 +8,7 @@ class TrayIcon extends Tray
 		const icon = path.join( `assets`, `icons`, `tray_icon.png` );
 		super( icon );
 
+		this.setToolTip( `SysTop` );
 		this.mainWindow = mainWindow;
 
 		this.on( `click`, this.onClick.bind( this ) );
