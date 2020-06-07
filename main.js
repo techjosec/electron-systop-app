@@ -7,7 +7,7 @@ const TrayIcon = require( `./core/TrayIcon` );
 const Store = require( `./core/Store` );
 
 // Set env
-process.env.NODE_ENV = `development`;
+process.env.NODE_ENV = `production`;
 
 const isDev = process.env.NODE_ENV !== `production`;
 const isMac = process.platform === `darwin`;
