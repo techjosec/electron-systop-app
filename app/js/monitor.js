@@ -16,6 +16,12 @@ ipcRenderer.on( `settings:get`, ( _e, settings ) =>
 	alertFrequency = +settings.alertFrequency;
 } );
 
+const nav = document.getElementById( `nav` );
+ipcRenderer.on( `nav:toggle`, () =>
+{
+	nav.classList.toggle( `hide` );
+} );
+
 function secondsToDhms( seconds )
 {
 	const intSeconds = +seconds;
