@@ -1,8 +1,9 @@
 const {
-	app, BrowserWindow, Menu, ipcMain, Tray,
+	app, BrowserWindow, Menu, ipcMain,
 } = require( `electron` );
-const path = require( `path` );
+
 const MainWindow = require( `./core/MainWindow` );
+const TrayIcon = require( `./core/TrayIcon` );
 const Store = require( `./core/Store` );
 
 // Set env
@@ -31,36 +32,7 @@ function createMainWindow()
 
 function createTrayIcon()
 {
-	const icon = path.join( `assets`, `icons`, `tray_icon.png` );
-	tray = new Tray( icon );
-
-	tray.on( `click`, () =>
-	{
-		if ( mainWindow.isVisible() === true )
-		{
-			mainWindow.hide();
-		}
-		else
-		{
-			mainWindow.show();
-		}
-	} );
-
-	tray.on( `right-click`, () =>
-	{
-		const contextMenu = Menu.buildFromTemplate( [
-			{
-				label : `Quit`,
-				click : ( ) =>
-				{
-					app.isQuitting = true;
-					app.quit();
-				},
-			},
-		] );
-
-		tray.popUpContextMenu( contextMenu );
-	} );
+	tray = new TrayIcon( mainWindow );
 }
 
 const menu = [
