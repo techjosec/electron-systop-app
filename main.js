@@ -1,7 +1,6 @@
 const {
 	app, BrowserWindow, Menu, ipcMain,
 } = require( `electron` );
-const log = require( `electron-log` );
 const Store = require( `./Store` );
 
 // Set env
@@ -94,6 +93,8 @@ app.on( `activate`, () =>
 ipcMain.on( `settings:set`, ( _e, payload ) =>
 {
 	store.set( `settings`, payload );
+
+	mainWindow.webContents.send( `settings:get`, payload );
 } );
 
 app.allowRendererProcessReuse = true;
