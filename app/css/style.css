@@ -148,3 +148,5 @@ nav ul li p {
 .btn:hover {
 	background-color: var(--btn-background-hover-color);
 }
+
+.alert-title { color: #fff !important; }
