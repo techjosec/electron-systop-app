@@ -6,7 +6,7 @@ const path = require( `path` );
 const MainWindow = require( `./core/MainWindow` );
 const TrayIcon = require( `./core/TrayIcon` );
 const Store = require( `./core/Store` );
-require( `dotenv` ).config();
+require( `dotenv` ).config( { path: path.join( __dirname, `app`, `.env` ) } );
 
 const isDev = process.env.NODE_ENV !== `production`;
 const isMac = process.platform === `darwin`;
