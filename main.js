@@ -6,9 +6,7 @@ const path = require( `path` );
 const MainWindow = require( `./core/MainWindow` );
 const TrayIcon = require( `./core/TrayIcon` );
 const Store = require( `./core/Store` );
-
-// Set env
-process.env.NODE_ENV = `production`;
+require( `dotenv` ).config();
 
 const isDev = process.env.NODE_ENV !== `production`;
 const isMac = process.platform === `darwin`;
